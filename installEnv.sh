@@ -1,3 +1,3 @@
 #!/bin/bash
-virtualenv .env -p python2
-. .env/bin/activate && pip install CoAPthon
+virtualenv .env -p python3
+. .env/bin/activate && pip install aiocoap
