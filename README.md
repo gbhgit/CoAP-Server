@@ -8,6 +8,8 @@ Requisitos:
   * Python 3
 
 Para realizar a criação da base de dados rode os seguintes comandos:
+
+```mysql
 CREATE DATABASE COAP;
 CREATE TABLE COAP.Users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -15,6 +17,7 @@ CREATE TABLE COAP.Users (
     pass VARCHAR(8) NOT NULL,
     token VARCHAR(24)
 );
+```
 
 Para Instalar é necessário que os requisitos acima tenham sido contemplados:
 
