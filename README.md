@@ -7,7 +7,7 @@ Requisitos:
   
   * Python 3
 
-Para realizar a criação da base de dados rode os seguintes comandos:
+1 - Para realizar a criação da base de dados rode os seguintes comandos:
 
 ```mysql
 CREATE DATABASE COAP;
@@ -19,13 +19,13 @@ CREATE TABLE COAP.Users (
 );
 ```
 
-Para Instalar é necessário que os requisitos acima tenham sido contemplados:
+2 - Para Instalar é necessário que os requisitos acima tenham sido contemplados:
 
   * Baixar o presente projeto.
   
   * Entrar na pasta raiz rodar o comando: `./install_env.sh`
   
-Para Rodar Servidor:
+3 - Para Rodar Servidor:
 
   * Abrir terminal.
   
