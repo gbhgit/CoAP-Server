@@ -7,6 +7,8 @@ Requisitos:
   
   * Python 3
 
+  * Instalar [Mysql](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04-pt)
+
 1 - Para realizar a criação da base de dados rode os seguintes comandos:
 
 ```mysql
