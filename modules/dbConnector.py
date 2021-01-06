@@ -6,6 +6,16 @@ import mysql.connector
 mydb = mysql.connector.connect(host="localhost", user="root", password="ggwp",database="COAP")
 # mydb.close()
 
+# Debug #
+def insertRandomHistory(user_id, data_value): # Use Only for debug
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO Hist (user_id, data_value) VALUES (%s, %s)"
+    val = (user_id, data_value)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    mycursor.close()
+
+# Release #
 def createToken(length):
     return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
 def checkEmailExist(email):
@@ -42,3 +52,29 @@ def loginUser(email, password):
         isLogin = True
     mycursor.close()
     return isLogin, token
+
+def getHistory(user_id):
+    mycursor = mydb.cursor()
+    sql = "SELECT data_value, date_value FROM Hist WHERE user_id = '" + user_id + "'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    mycursor.close()
+
+    vec_hist = "["
+    for obj in myresult:
+        vec_hist = vec_hist + "{\"value\": \"" + str(obj[0]) + "\", \"date\": \"" + str(obj[1]) + "\"}"
+        if myresult[-1] != obj:
+            vec_hist = vec_hist + ","
+    vec_hist = vec_hist + "]"
+    return vec_hist
+def checkToken(token):
+    user_id = -1
+    mycursor = mydb.cursor()
+    sql = "SELECT id FROM Users WHERE token = '" + token + "'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchone()
+    if myresult != None:
+        user_id = myresult[0]
+    return user_id
+
+# insertRandomHistory(1, 23.1) # use only for debug

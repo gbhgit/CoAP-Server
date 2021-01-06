@@ -19,6 +19,12 @@ CREATE TABLE COAP.Users (
     pass VARCHAR(8) NOT NULL,
     token VARCHAR(24)
 );
+CREATE TABLE COAP.Hist (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(6) UNSIGNED,
+    data_value FLOAT,
+    date_value DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 ```
 
 2 - Para Instalar é necessário que os requisitos acima tenham sido contemplados:

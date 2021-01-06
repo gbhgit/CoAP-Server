@@ -3,11 +3,11 @@ import aiocoap
 import json
 import modules.dbConnector as dbConnector
 
-class SignIn(resource.Resource):
+class HistoryUser(resource.Resource):
 
     def __init__(self):
         super().__init__()
-        self.set_content("Login Account\n")
+        self.set_content("History User\n")
 
     def set_content(self, content):
         self.content = content
@@ -23,13 +23,13 @@ class SignIn(resource.Resource):
     async def render_put(self, request):
         payload = request.payload
         payload = json.loads(payload.decode('utf-8'))
-        if "email" in payload and "password" in payload:
-            isLogin, token = dbConnector.loginUser(payload['email'], payload['password'])
-            if isLogin:
-                localstring = "{\"status\": \"200\", \"token\": \"" + token + "\"}"
-                self.set_content(str.encode(localstring))
-            else:   
-                self.set_error(501, "[Warning] Wrong User Credentials")
+        if "token" in payload:
+            user_id = dbConnector.checkToken(payload['token'])
+            if user_id == -1:
+                self.set_error(502, "[Warning] Wrong User Credentials")
+            else:
+                history = dbConnector.getHistory(str(user_id))
+                self.set_content(str.encode(history))   
         else:
-            self.set_error(400, "[Error] Not found Key (s) in SignIn")
+            self.set_error(400, "[Error] Not found Key (s) in HistoryUser")
         return aiocoap.Message(code=aiocoap.CHANGED, payload=self.content)
