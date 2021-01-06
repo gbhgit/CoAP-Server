@@ -5,6 +5,7 @@ import aiocoap
 import modules.singIn as singIn
 import modules.singUp as singUp
 import modules.histUser as histUser
+import modules.procData as procData
 
 # Logging Setup
 logging.basicConfig(level=logging.INFO)
@@ -16,6 +17,7 @@ def main():
     root.add_resource(['signup'], singUp.SignUp())
     root.add_resource(['signin'], singIn.SignIn())
     root.add_resource(['histuser'], histUser.HistoryUser())
+    root.add_resource(['procdata'], procData.ProcessData())
     asyncio.Task(aiocoap.Context.create_server_context(root))
     asyncio.get_event_loop().run_forever()
 

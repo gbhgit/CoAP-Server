@@ -77,4 +77,12 @@ def checkToken(token):
         user_id = myresult[0]
     return user_id
 
+def insertInHistory(user_id, data_value):
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO Hist (user_id, data_value) VALUES (%s, %s)"
+    val = (user_id, data_value)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    mycursor.close()
+
 # insertRandomHistory(1, 23.1) # use only for debug
