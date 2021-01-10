@@ -30,14 +30,25 @@ class ProcessData(resource.Resource):
     async def render_put(self, request):
         payload = request.payload
         payload = json.loads(payload.decode('utf-8'))
-        if "token" in payload and "inputData" in payload:
+        if "token" in payload and "inputData" in payload and "dataStatus" in payload:
             user_id = dbConnector.checkToken(payload['token'])
             if user_id == -1:
                 self.set_error(502, "[Warning] Wrong User Credentials")
             else:
-                procResult, data_value = processInputData(payload['inputData'])
-                dbConnector.insertInHistory(user_id, data_value)
-                self.set_content(str.encode(procResult))   
+                if payload['dataStatus'] == 'create':
+                    dataId = dbConnector.insertImage(user_id, payload['inputData'])
+                    localstring = "{\"dataId\": \"" + str(dataId) + "\"}"
+                    self.set_content(str.encode(localstring))
+                elif payload['dataStatus'] == 'update':
+                    dbConnector.updateImage(user_id, payload['dataId'],  payload['inputData'])
+                    localstring = "{\"dataId\": \"" + str(payload['dataId'],) + "\"}"
+                    self.set_content(str.encode(localstring))
+                elif payload['dataStatus'] == 'end':
+                    dbConnector.updateImage(user_id, payload['dataId'],  payload['inputData'])
+                    inputData = dbConnector.getImage(user_id, payload['dataId'])
+                    procResult, data_value = processInputData(inputData)
+                    dbConnector.insertInHistory(user_id, data_value)
+                    self.set_content(str.encode(procResult)) 
         else:
             self.set_error(400, "[Error] Not found Key (s) in HistoryUser")
         return aiocoap.Message(code=aiocoap.CHANGED, payload=self.content)

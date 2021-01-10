@@ -76,7 +76,6 @@ def checkToken(token):
     if myresult != None:
         user_id = myresult[0]
     return user_id
-
 def insertInHistory(user_id, data_value):
     mycursor = mydb.cursor()
     sql = "INSERT INTO Hist (user_id, data_value) VALUES (%s, %s)"
@@ -84,5 +83,28 @@ def insertInHistory(user_id, data_value):
     mycursor.execute(sql, val)
     mydb.commit()
     mycursor.close()
+
+def insertImage(user_id, data_block):
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO Images (user_id, data_block) VALUES (%s, %s)"
+    val = (user_id, data_block)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    dataId = mycursor.lastrowid
+    mycursor.close()
+    return dataId
+def updateImage(user_id, dataId, data_block):
+    mycursor = mydb.cursor()
+    sql = "UPDATE Images SET data_block = CONCAT(data_block,'" + str(data_block) + "') WHERE user_id = '" + str(user_id) + "' and id = '" + str(dataId) + "'"
+    mycursor.execute(sql)
+    mydb.commit()
+    mycursor.close()
+def getImage(user_id, dataId):
+    mycursor = mydb.cursor()
+    sql = "SELECT data_block FROM Images WHERE user_id = '" + str(user_id) + "' and id = '" + str(dataId) + "'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    mycursor.close()
+    return myresult[0]
 
 # insertRandomHistory(1, 23.1) # use only for debug

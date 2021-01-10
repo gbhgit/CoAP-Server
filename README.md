@@ -25,6 +25,11 @@ CREATE TABLE COAP.Hist (
     data_value FLOAT,
     date_value DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+CREATE TABLE COAP.Images (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(6) UNSIGNED,
+    data_block LONGTEXT
+);
 ```
 
 2 - Para Instalar é necessário que os requisitos acima tenham sido contemplados:
