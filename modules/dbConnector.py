@@ -105,6 +105,6 @@ def getImage(user_id, dataId):
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     mycursor.close()
-    return myresult[0]
+    return myresult[0][0]
 
 # insertRandomHistory(1, 23.1) # use only for debug
