@@ -262,11 +262,24 @@ def processInputData(inputData):
     sexo, idade, altura, peso, imagem = inputData.split(";")
     sexo = int(sexo.split("=")[1])
     idade = int(idade.split("=")[1])
-    altura = float(altura.split("=")[1])
+    altura = float(altura.split("=")[1])/100
     peso = float(peso.split("=")[1])
     b64_string = str(imagem.split("=")[1])
     value = random.uniform(20.5, 38.5)
+    # calcular IMC
+    IMC = peso/(altura*altura)
+    IMC = round(IMC,2)
+    IMC_classe = ""
 
+    if IMC < 18.5:
+        IMC_classe = "Magreza"
+    if IMC >= 18.5 and IMC < 24.9:
+        IMC_classe = "Normal"
+    if IMC >= 24.9 and IMC < 30:
+        IMC_classe = "Sobrepeso"
+    if IMC >= 30:
+        IMC_classe = "Obesidade"
+    
     if sexo == 1: # homem
         class_idade = 0
         for index in range(len(data_idade)):
@@ -288,7 +301,8 @@ def processInputData(inputData):
                     class_typo = typ
 
         message = "Resultado " + class_typo 
-        message = message + ", considerando sexo masculino e idade entre " + str(data_idade[class_idade]['min']) + "-" + str(data_idade[class_idade]['max']) 
+        message = message + ", considerando sexo masculino e idade entre " + str(data_idade[class_idade]['min']) + "-" + str(data_idade[class_idade]['max']) + "."
+        message = message + " Enquanto o IMC deu " + str(IMC) + " que se classifica como " + IMC_classe
         localstring = "{\"value\": \"" + str(value) + "\", \"message\": \"" + message + "\"}"
         return localstring, value
     else:
@@ -312,7 +326,8 @@ def processInputData(inputData):
                     class_typo = typ
 
         message = "Resultado " + class_typo 
-        message = message + ", considerando sexo feminino e idade entre " + str(data_idade[class_idade]['min']) + "-" + str(data_idade[class_idade]['max']) 
+        message = message + ", considerando sexo feminino e idade entre " + str(data_idade[class_idade]['min']) + "-" + str(data_idade[class_idade]['max']) + "."
+        message = message + " Enquanto o IMC deu " + str(IMC) + " que se classifica como " + IMC_classe
         localstring = "{\"value\": \"" + str(value) + "\", \"message\": \"" + message + "\"}"
         return localstring, value
 
