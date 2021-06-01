@@ -1,16 +1,18 @@
 # CoAP-Server
 CoAP-Server using python
+Constrained Application Protocol (CoAP), Server to connect users to server db.
 
-Requisitos:
+### Requirements
       
-  * Ubuntu 16.04 ou 20.04:
-  
+  * Ubuntu 16.04 or 20.04:
   * Python 3
+  * Install [Mysql](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04-pt)
 
-  * Instalar [Mysql](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04-pt)
+### Installation
+- 1: Using the terminal enter in repository folder and type the command:
 
-1 - Para realizar a criação da base de dados rode os seguintes comandos:
-
+		`./install_env.sh`
+- 2: To create db just run the following commands:
 ```mysql
 CREATE DATABASE COAP;
 CREATE TABLE COAP.Users (
@@ -32,16 +34,8 @@ CREATE TABLE COAP.Images (
 );
 ```
 
-2 - Para Instalar é necessário que os requisitos acima tenham sido contemplados:
-
-  * Baixar o presente projeto.
+### Usage
   
-  * Entrar na pasta raiz rodar o comando: `./install_env.sh`
+  * Activate env: `. .env/bin/activate`
   
-3 - Para Rodar Servidor:
-
-  * Abrir terminal.
-  
-  * Ativar a env: `. .env/bin/activate`
-  
-  * Rodar code: `python server.py`
+  * Run code: `python server.py`
