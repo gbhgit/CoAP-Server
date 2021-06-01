@@ -1,6 +1,6 @@
 # CoAP-Server
 CoAP-Server using python
-Constrained Application Protocol (CoAP), Server to connect users to server db.
+Constrained Application Protocol (CoAP), to connect users to db.
 
 ### Requirements
       
